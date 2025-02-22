@@ -14,6 +14,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * In this class maintain based on the product related implementations
+ */
 @Service
 @Slf4j
 public class ProductServiceImpl implements ProductService{
@@ -25,6 +28,11 @@ public class ProductServiceImpl implements ProductService{
     private ApplicationEventPublisher eventPublisher;
 
 
+    /**
+     * Created new product
+     * @param productRequest
+     * @return Product
+     */
     @Override
     public Product createProduct(ProductRequest productRequest) {
         log.info("Creating product: {}", productRequest.getName());
@@ -33,6 +41,12 @@ public class ProductServiceImpl implements ProductService{
         return savedProduct;
     }
 
+    /**
+     * Update new praduct
+     * @param id
+     * @param productRequest
+     * @return Product
+     */
     @Override
     public Product updateProduct(Long id, ProductRequest productRequest) {
         log.info("Updating product with ID: {}", id);
@@ -44,6 +58,10 @@ public class ProductServiceImpl implements ProductService{
         return productRepository.save(existingProduct);
     }
 
+    /**
+     * Delete the product
+     * @param id
+     */
     @Override
     public void deleteProduct(Long id) {
         log.info("Soft deleting product with ID: {}", id);
@@ -53,6 +71,11 @@ public class ProductServiceImpl implements ProductService{
         productRepository.save(product);
     }
 
+    /**
+     * Retrieve the product based on the category
+     * @param category
+     * @return List<ProductResponse>
+     */
     @Override
     public List<ProductResponse> getProductsByCategory(String category) {
 
@@ -61,9 +84,13 @@ public class ProductServiceImpl implements ProductService{
         return ProductTransformer.toProductResponseList(productList);
     }
 
+    /**
+     * Retrieve all premium products (price >= $500)
+     * @return List<ProductResponse>
+     */
     @Override
     public List<ProductResponse> getPremiumProducts() {
-        //log.info("Fetching premium products");
+        log.info("Fetching premium products");
         List<Product> productList = productRepository.findByPriceGreaterThanEqual(500.0);
         return ProductTransformer.toProductResponseList(productList);
     }

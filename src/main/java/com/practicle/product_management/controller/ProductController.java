@@ -5,8 +5,8 @@ import com.practicle.product_management.dtos.ProductRequest;
 import com.practicle.product_management.dtos.ProductResponse;
 import com.practicle.product_management.exception.GlobalExceptionHandler;
 import com.practicle.product_management.service.ProductService;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotEmpty;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +22,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+/**
+ *
+ */
 @RestController
 @RequestMapping("/api/products")
 @Slf4j
@@ -32,7 +35,7 @@ public class ProductController extends GlobalExceptionHandler {
 
     @RequestMapping(value = "/admin/create", method = RequestMethod.POST)
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<String> createProduct(@RequestBody ProductRequest productRequest) {
+    public ResponseEntity<String> createProduct(@Valid @RequestBody ProductRequest productRequest) {
 
         productService.createProduct(productRequest);
         return ResponseEntity.ok("Product created successfully");

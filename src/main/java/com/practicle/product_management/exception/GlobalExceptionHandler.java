@@ -19,14 +19,6 @@ import java.util.Map;
 @Slf4j
 public class GlobalExceptionHandler {
 
-    // Handle Resource Not Found (Custom Exception)
-    @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<Map<String, String>> handleResourceNotFoundException(ResourceNotFoundException ex) {
-        log.error("Resource not found: {}", ex.getMessage());
-        return buildErrorResponse(HttpStatus.NOT_FOUND, ex.getMessage());
-    }
-
-    // Handle @Valid request body validation errors
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, String>> handleValidationExceptions(MethodArgumentNotValidException ex) {
         Map<String, String> errors = new HashMap<>();
@@ -37,7 +29,6 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
     }
 
-    // Handle @PathVariable validation errors (e.g., @Min, @Max, etc.)
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<Map<String, String>> handlePathVariableErrors(ConstraintViolationException ex) {
         Map<String, String> errors = new HashMap<>();
@@ -46,20 +37,5 @@ public class GlobalExceptionHandler {
 
         log.warn("PathVariable validation failed: {}", errors);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
-    }
-
-    // Handle Missing Path Variable Exception (e.g., when URL is incomplete)
-    @ExceptionHandler(MissingPathVariableException.class)
-    public ResponseEntity<Map<String, String>> handleMissingPathVariable(MissingPathVariableException ex) {
-        String errorMessage = "Required path variable '" + ex.getVariableName() + "' is missing";
-        log.error(errorMessage);
-        return buildErrorResponse(HttpStatus.BAD_REQUEST, errorMessage);
-    }
-
-    // Utility method to build a JSON response
-    private ResponseEntity<Map<String, String>> buildErrorResponse(HttpStatus status, String message) {
-        Map<String, String> errorResponse = new HashMap<>();
-        errorResponse.put("error", message);
-        return ResponseEntity.status(status).body(errorResponse);
     }
 }

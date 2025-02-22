@@ -7,8 +7,16 @@ import com.practicle.product_management.entity.Product;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * This class maintain the product based transformers
+ */
 public class ProductTransformer {
 
+    /**
+     * Convert product request to product
+     * @param productRequest
+     * @return Product
+     */
     public static Product toProduct(final ProductRequest productRequest) {
         final Product product = new Product();
         product.setName(productRequest.getName());
@@ -20,6 +28,11 @@ public class ProductTransformer {
         return product;
     }
 
+    /**
+     * Convert to list of product to the product response
+     * @param productList
+     * @return List<ProductResponse>
+     */
     public static List<ProductResponse> toProductResponseList (final List<Product> productList){
         return productList.stream().map(product -> {
             ProductResponse response = new ProductResponse();

@@ -3,7 +3,6 @@ package com.practicle.product_management.config;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.jwt.Jwt;
-import org.springframework.util.CollectionUtils;
 
 import java.util.Collection;
 import java.util.List;
