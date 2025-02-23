@@ -10,10 +10,10 @@ import lombok.Setter;
 @Setter
 public class ProductRequest {
 
-    @NotEmpty(message = "Please provide a username" )
+    @NotEmpty
     private String name;
 
-    @NotEmpty(message = "Please provide a description")
+    @NotEmpty
     private String description;
 
     @NotNull
