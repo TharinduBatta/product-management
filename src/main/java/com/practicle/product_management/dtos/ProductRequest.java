@@ -22,7 +22,6 @@ public class ProductRequest {
     @NotEmpty
     private String category;
 
-    @NotEmpty
     private String status;
 
 }

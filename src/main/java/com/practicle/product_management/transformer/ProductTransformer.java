@@ -20,7 +20,7 @@ public class ProductTransformer {
     public static Product toProduct(final ProductRequest productRequest) {
         final Product product = new Product();
         product.setName(productRequest.getName());
-        //product.setPrice(productRequest.getPrice());
+        product.setPrice(productRequest.getPrice());
         product.setCategory(productRequest.getCategory());
         product.setDescription(productRequest.getDescription());
         product.setStatus("A");
